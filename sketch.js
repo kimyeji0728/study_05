@@ -8,21 +8,19 @@
 // list of particles.
 
 // an array of ParticleSystems
-let emitters = [];
+let emitter;
 
 function setup() {
   createCanvas(640, 240);
-  let text = createP("click to add particle systems");
+  let text = createP("Move the mouse to control the particle emitter");
+  emitter = new Emitter(mouseX, mouseY); // 초기 위치 설정
 }
 
 function draw() {
   background(255);
-  for (let emitter of emitters) {
-    emitter.run();
-    emitter.addParticle();
-  }
-}
 
-function mousePressed() {
-  emitters.push(new Emitter(mouseX, mouseY));
+  // 마우스 위치로 분출기 이동
+  emitter.setPosition(mouseX, mouseY);
+
+  emitter.run();
 }

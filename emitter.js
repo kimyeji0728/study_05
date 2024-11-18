@@ -8,19 +8,31 @@ class Emitter {
     this.particles = [];
   }
 
+  // 분출기 위치 갱신
+  setPosition(x, y) {
+    this.origin.set(x, y);
+  }
+
+  // 입자 생성
   addParticle() {
     this.particles.push(new Particle(this.origin.x, this.origin.y));
   }
 
+  // 입자 업데이트 및 제거
   run() {
-    // Looping through backwards to delete
+    this.addParticle(); // 매 프레임 입자 추가
+
+    // 역순으로 루프를 돌며 입자 제거
     for (let i = this.particles.length - 1; i >= 0; i--) {
-      this.particles[i].run();
-      if (this.particles[i].isDead()) {
-        // Remove the particle
+      let p = this.particles[i];
+      p.run();
+      if (p.isDead()) {
         this.particles.splice(i, 1);
       }
     }
+  }
+}
+
 
     // Run every particle
     // ES6 for..of loop
@@ -40,5 +52,5 @@ class Emitter {
     // this.particles = this.particles.filter(function(particle) {
     //   return !particle.isDead();
     // });
-  }
-}
+  
+

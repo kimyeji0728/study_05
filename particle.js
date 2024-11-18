@@ -14,26 +14,20 @@ class Particle {
     this.lifespan = 255.0;
   }
 
-  run() {
-    let gravity = createVector(0, 0.05);
-    this.applyForce(gravity);
-    this.update();
-    this.show();
-  }
-
+  // 입자에 힘 적용
   applyForce(force) {
     this.acceleration.add(force);
   }
 
-  // Method to update position
+  // 입자 업데이트
   update() {
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
     this.lifespan -= 2;
-    this.acceleration.mult(0);
+    this.acceleration.mult(0); // 가속 초기화
   }
 
-  // Method to display
+  // 입자 표시
   show() {
     stroke(0, this.lifespan);
     strokeWeight(2);
@@ -41,8 +35,17 @@ class Particle {
     circle(this.position.x, this.position.y, 8);
   }
 
-  // Is the particle still useful?
+  // 수명 확인
   isDead() {
     return this.lifespan < 0.0;
   }
+
+  // 실행 메서드
+  run() {
+    let gravity = createVector(0, 0.05); // 중력 추가
+    this.applyForce(gravity);
+    this.update();
+    this.show();
+  }
 }
+
